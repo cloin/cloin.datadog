@@ -1,7 +1,7 @@
 .. _dd_events_module:
 
 
-dd_events -- event-driven-ansible source plugin for Datadog events
+dd_events -- Event-Driven Ansible source plugin for Datadog events
 ==================================================================
 
 .. contents::
