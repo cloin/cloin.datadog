@@ -1,6 +1,6 @@
 DOCUMENTATION = r'''
 module: dd_events
-short_description: event-driven-ansible source plugin for Datadog events
+short_description: Event-Driven Ansible source plugin for Datadog events
 description:
     - Poll Datadog API for new events
     - Only retrieves events that occurred after the script began executing
