@@ -53,7 +53,7 @@ async def main(queue: asyncio.Queue, args: dict):
 if __name__ == "__main__":
     DATADOG_API_KEY = os.getenv("DATADOG_API_KEY", "default_api_key")
     DATADOG_APP_KEY = os.getenv("DATADOG_APP_KEY", "default_app_key")
-    DATADOG_API_URL = os.getenv("DATADOG_API_URL", "https://api.us5.datadoghq.com/api/v1/events")
+    DATADOG_API_URL = os.getenv("DATADOG_API_URL", "https://api.datadoghq.com/api/v1/events")
     INTERVAL = os.getenv("INTERVAL", "10")
 
     class MockQueue:
