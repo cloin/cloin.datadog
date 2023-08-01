@@ -6,7 +6,7 @@
         app_key: <my_app_key>
         api_key: <my_api_key>
         api_url: 
-        interval: 
+        interval: 10
 
   rules:
     - name: Catch all Datadog events
