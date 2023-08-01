@@ -1,3 +1,54 @@
+DOCUMENTATION = r'''
+module: dd_events
+short_description: event-driven-ansible source plugin for Datadog events
+description:
+    - Poll Datadog API for new events
+    - Only retrieves events that occurred after the script began executing
+    - This script can be tested outside of ansible-rulebook by specifying environment variables for DATADOG_API_KEY, DATADOG_APP_KEY, DATADOG_API_URL, and INTERVAL
+author: "Colin McNaughton (@cloin)"
+options:
+    api_key:
+        description:
+            - Your Datadog API key
+        required: true
+    app_key:
+        description:
+            - Your Datadog Application key
+        required: true
+    api_url:
+        description:
+            - The URL for the Datadog API
+        required: false
+        default: "https://api.datadoghq.com/api/v1/events"
+    interval:
+        description:
+            - The interval, in seconds, at which the script polls the API
+        required: false
+        default: 10
+notes:
+    - The script will run indefinitely until manually stopped. To stop the script, use Control-C or any other method of sending an interrupt signal to the process
+    - The script uses the aiohttp and asyncio libraries for making HTTP requests and handling asynchronous tasks, respectively. Make sure these libraries are installed in your Python environment before running the script
+    - This script is designed for Python 3.7 and above due to the usage of the asyncio library. Please ensure you are using an appropriate version of Python
+'''
+
+EXAMPLES = r'''
+- name: Respond to Datadog events
+  hosts: all
+  sources:
+    - cloin.datadog.dd_events:
+        api_key: asdlkfjh123049857
+        app_key: lkjahsdf09827345hasef
+        api_url: https://api.us5.datadoghq.com/api/v1/events
+        interval: 10
+
+  rules:
+    - name: Catch all Datadog events
+      condition: event.id is defined
+      action:
+        debug:
+'''
+
+
 import aiohttp
 import asyncio
 import json
