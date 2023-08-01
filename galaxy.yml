@@ -1,0 +1,17 @@
+namespace: cloin
+name: datadog
+version: 1.0.0
+readme: README.md
+authors:
+  - Colin McNaughton <@cloin>
+description: Ansible and Event-Driven Ansible content
+license_file: 'LICENSE'
+tags:
+  - infrastructure
+  - datadog
+  - observability
+dependencies: {}
+repository: https://github.com/cloin/cloin.datadog
+documentation: https://github.com/cloin/cloin.datadog/tree/main/docs
+issues: https://github.com/cloin/cloin.datadog/issues
+build_ignore: []
