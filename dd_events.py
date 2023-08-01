@@ -4,9 +4,7 @@ import json
 import os
 from datetime import datetime, timedelta
 
-DATADOG_API_URL = "https://api.us5.datadoghq.com/api/v1/events"
-
-async def fetch_datadog_events(session, start_time, api_key, app_key):
+async def fetch_datadog_events(session, api_url, start_time, api_key, app_key):
     # Define end time for events
     end_time = datetime.now()
 
@@ -21,7 +19,7 @@ async def fetch_datadog_events(session, start_time, api_key, app_key):
         "application_key": app_key,
     }
 
-    async with session.get(DATADOG_API_URL, params=params) as response:
+    async with session.get(api_url, params=params) as response:
         print(f"HTTP Status Code: {response.status}")
         return await response.json(), end_time
 
@@ -29,6 +27,7 @@ async def main(queue: asyncio.Queue, args: dict):
     interval = int(args.get("interval", 10))
     api_key = args.get("api_key")
     app_key = args.get("app_key")
+    api_url = args.get("api_url")
 
     async with aiohttp.ClientSession() as session:
         # start from 5 minutes ago
@@ -36,7 +35,7 @@ async def main(queue: asyncio.Queue, args: dict):
         printed_events = set()  # keep track of printed events
 
         while True:
-            response, _ = await fetch_datadog_events(session, start_time, api_key, app_key)
+            response, _ = await fetch_datadog_events(session, api_url, start_time, api_key, app_key)
 
             if 'events' in response:
                 for event in response['events']:
@@ -53,12 +52,18 @@ async def main(queue: asyncio.Queue, args: dict):
 if __name__ == "__main__":
     DATADOG_API_KEY = os.getenv("DATADOG_API_KEY", "default_api_key")
     DATADOG_APP_KEY = os.getenv("DATADOG_APP_KEY", "default_app_key")
+    DATADOG_API_URL = os.getenv("DATADOG_API_URL", "https://api.us5.datadoghq.com/api/v1/events")
     INTERVAL = os.getenv("INTERVAL", "10")
 
     class MockQueue:
         async def put(self, event):
             print(event)
 
-    args = {"api_key": DATADOG_API_KEY, "app_key": DATADOG_APP_KEY, "interval": INTERVAL}
+    args = {
+        "api_key": DATADOG_API_KEY,
+        "app_key": DATADOG_APP_KEY,
+        "api_url": DATADOG_API_URL,
+        "interval": INTERVAL,
+    }
     asyncio.run(main(MockQueue(), args))
 
