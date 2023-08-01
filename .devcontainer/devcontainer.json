@@ -1,0 +1,9 @@
+{
+    "name": "Fedora38",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "args": { }
+    },
+
+    "runArgs": [ ]
+}
