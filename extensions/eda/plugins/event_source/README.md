@@ -4,7 +4,7 @@ This Python script is an Event-Driven Ansible source plugin for Datadog. It uses
 
 ## Usage
 
-The script uses environment variables to get necessary parameters:
+For testing outside of `ansible-rulebook`, the script uses environment variables to get necessary parameters:
 
 - `DATADOG_API_KEY`: Your Datadog API key. (required)
 - `DATADOG_APP_KEY`: Your Datadog Application key. (required)
