@@ -30,7 +30,8 @@ async def main(queue: asyncio.Queue, args: dict):
     api_url = args.get("api_url")
 
     async with aiohttp.ClientSession() as session:
-        # start from 5 minutes ago
+        # events sometimes take a while to post to the event stream
+        # start looking for events from 5 minutes ago
         start_time = datetime.now() - timedelta(minutes=5)
         printed_events = set()  # keep track of printed events
 
