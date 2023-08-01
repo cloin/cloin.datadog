@@ -11,7 +11,7 @@ The script uses environment variables to get necessary parameters:
 - `DATADOG_API_KEY`: Your Datadog API key. (required)
 - `DATADOG_APP_KEY`: Your Datadog Application key. (required)
   - Requires `events_read` scope
-- `DATADOG_API_URL`: The URL for the Datadog API. (default: `https://api.us5.datadoghq.com/api/v1/events`)
+- `DATADOG_API_URL`: The URL for the Datadog API. (default: `https://api.datadoghq.com/api/v1/events`)
 - `INTERVAL`: The interval, in seconds, at which the script polls the API. (default: `10`)
 
 To use the script, first set the required environment variables:
