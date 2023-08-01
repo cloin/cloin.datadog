@@ -1,0 +1,15 @@
+---
+- name: Respond to Datadog events
+  hosts: all
+  sources:
+    - dd_events:
+        app_key: 
+        api_key: 
+        api_url: 
+        interval: 10
+
+  rules:
+    - name: Catch all Datadog events
+      condition: event.id is defined
+      action:
+        debug:
