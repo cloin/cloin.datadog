@@ -2,13 +2,24 @@
 - name: Respond to Datadog events
   hosts: all
   sources:
-    - dd_events:
+    - cloin.datadog.dd_events:
         app_key: <my_app_key>
         api_key: <my_api_key>
         api_url: 
         interval: 10
 
   rules:
+
+    - name: Catch Datadog application incident
+      condition: event.type == "Incidents" and event.source == "my_app"
+      action:
+        debug:
+
+    - name: Catch all Datadog Incidents
+      condition: event.type is "Incidents"
+      action:
+        debug:
+
     - name: Catch all Datadog events
       condition: event.id is defined
       action:
