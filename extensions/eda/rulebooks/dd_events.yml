@@ -9,18 +9,27 @@
         interval: 10
 
   rules:
-
-    - name: Catch Datadog application incident
-      condition: event.type == "Incidents" and event.source == "my_app"
+    - name: Catch Incidents events
+      condition: event.source == "Incidents"
       action:
         debug:
 
-    - name: Catch all Datadog Incidents
-      condition: event.type is "Incidents"
+    - name: TRIGGERED toxicstack monitor alerts
+      condition: event.source == "Monitor Alert" and event.title is search("toxicstack is responding slowly",ignorecase=true) and event.title is search("Triggered",ignorecase=true)
       action:
         debug:
 
-    - name: Catch all Datadog events
+    - name: RESOLVED toxicstack monitor alerts
+      condition: event.source == "Monitor Alert" and event.title is search("toxicstack is responding slowly",ignorecase=true) and event.title is search("Recovered",ignorecase=true)
+      action:
+        debug:
+
+    - name: Catch Monitor Alert events
+      condition: event.source == "Monitor Alert"
+      action:
+        debug:
+    
+    - name: Catch all other events
       condition: event.id is defined
       action:
         debug:
