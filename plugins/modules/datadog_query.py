@@ -1,5 +1,60 @@
 #!/usr/bin/python
 
+DOCUMENTATION = r'''
+---
+module: datadog_query
+short_description: Fetches latest metric values from Datadog
+description:
+    - This module fetches the latest metric values from Datadog for a given query and time range.
+options:
+    api_key:
+        description:
+            - The API key for Datadog.
+        required: true
+        type: str
+    app_key:
+        description:
+            - The application key for Datadog.
+        required: true
+        type: str
+    duration_seconds:
+        description:
+            - The time duration in seconds for which to fetch metrics.
+            - Default is 600 seconds (10 minutes).
+        default: 600
+        type: int
+    endpoint_url:
+        description:
+            - The Datadog API endpoint URL to fetch metrics.
+            - Default is Datadog's v1 query API.
+        default: 'https://api.datadoghq.com/api/v1/query'
+        type: str
+    queries:
+        description:
+            - List of Datadog metric queries to fetch.
+        required: true
+        type: list
+        elements: str
+requirements:
+    - python >= 3.x
+    - requests
+author:
+    - Colin McNaughton @cloin
+examples:
+    - name: Fetch metrics from Datadog
+      datadog_metric_fetcher:
+        api_key: 'YOUR_DD_API_KEY'
+        app_key: 'YOUR_DD_APP_KEY'
+        queries:
+          - 'avg:system.cpu.idle{*}'
+          - 'avg:system.mem.used{*}'
+return:
+    metrics_data:
+        description: A dictionary containing the latest values for the queried metrics.
+        returned: always
+        type: dict
+'''
+
 from ansible.module_utils.basic import AnsibleModule
 import time
 import requests
