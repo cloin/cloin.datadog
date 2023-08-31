@@ -74,6 +74,9 @@ def fetch_latest_metric_value(query, duration_seconds, endpoint_url, api_key, ap
     }
     try:
         response = requests.get(endpoint_url, headers=headers, params=params)
+        if response.status_code != 200:
+            print(f"Received {response.status_code} status code.")
+            print(f"Response content: {response.content.decode('utf-8')}")
         response.raise_for_status()
         data = response.json()
         if 'series' in data and data['series']:
@@ -82,7 +85,9 @@ def fetch_latest_metric_value(query, duration_seconds, endpoint_url, api_key, ap
         else:
             return None
     except Exception as e:
+        print(f"An error occurred: {e}")
         raise e
+
 
 def main():
     argument_spec = {
