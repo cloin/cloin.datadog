@@ -86,6 +86,8 @@ def fetch_latest_metric_value(query, duration_seconds, endpoint_url, api_key, ap
             return None
     except Exception as e:
         print(f"An error occurred: {e}")
+        if response:
+            print(f"Response content: {response.content.decode('utf-8')}")
         raise e
 
 
