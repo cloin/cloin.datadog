@@ -17,12 +17,6 @@ options:
             - The application key for Datadog.
         required: true
         type: str
-    duration_seconds:
-        description:
-            - The time duration in seconds for which to fetch metrics.
-            - Default is 600 seconds (10 minutes).
-        default: 600
-        type: int
     endpoint_url:
         description:
             - The Datadog API endpoint URL to fetch metrics.
