@@ -118,7 +118,6 @@ def main():
         except Exception as e:
             module.fail_json(msg=str(e))
 
-    # Using 'metrics_data' for the result
     module.exit_json(changed=False, metrics_data=metrics_data)
 
 if __name__ == '__main__':
