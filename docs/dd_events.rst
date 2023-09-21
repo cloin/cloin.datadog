@@ -72,10 +72,38 @@ Examples
             interval: 10
 
       rules:
-        - name: Catch all Datadog events
-          condition: event.id is defined
-          action:
-            debug:
+       - name: Catch Incidents events
+         condition: event.source == "Incidents"
+         action:
+           debug:
+   
+       - name: SwingSight - Monitor triggered
+         condition: |
+           event.source == "Monitor Alert" and
+           event.title is search("swingsight",ignorecase=true) and
+           event.title is search("Triggered",ignorecase=true)
+         action:
+           run_job_template:
+             organization: Default
+             name: Dispatch RangeRoamer
+   
+       - name: SwingSight - Monitor resolved
+         condition: |
+           event.source == "Monitor Alert" and
+           event.title is search("swingsight",ignorecase=true) and
+           event.title is search("Recovered",ignorecase=true)
+         action:
+           debug:
+   
+       - name: Catch Monitor Alert events
+         condition: event.source == "Monitor Alert"
+         action:
+           debug:
+   
+       - name: Catch all other events
+         condition: event.source is defined
+         action:
+           debug:
 
 
 
